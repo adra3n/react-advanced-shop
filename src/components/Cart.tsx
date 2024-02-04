@@ -1,4 +1,4 @@
-import { CartItem, CartProductItem } from '../types'
+import { CartItem, CartProductItem } from '../types/types'
 import Button from './Button'
 
 interface CartProps {
@@ -45,7 +45,7 @@ const Cart = ({ cart, setCart }: CartProps) => {
   }
 
   return (
-    <div className="flex flex-col w-64 gap-5 m-5 mt-12">
+    <div className="flex flex-col w-64 gap-5 mt-12 mr-32">
       <div className="flex flex-col items-center justify-between  bg-white rounded shadow-xl py-5">
         <div className="">
           {cart &&
@@ -56,11 +56,11 @@ const Cart = ({ cart, setCart }: CartProps) => {
               >
                 <div className="h-10">
                   <p className="text-sm ">{product.name}</p>
-                  <p className="text-blue-700 text-xs">{product.price} ₺</p>
+                  <p className="text-blueBg text-xs">{product.price} ₺</p>
                 </div>
                 <div className="flex items-center h-8 gap-1 font-bold">
                   <button onClick={() => handleDecrease(product)}>-</button>
-                  <div className="bg-blue-700 text-white font-normal w-8 h-8 text-center flex items-center justify-center ">
+                  <div className="bg-blueBg text-white font-normal w-8 h-8 text-center flex items-center justify-center ">
                     <p>{product.count}</p>
                   </div>
                   <button onClick={() => handleIncrease(product)}>+</button>
@@ -72,7 +72,7 @@ const Cart = ({ cart, setCart }: CartProps) => {
       <div className="flex flex-col  gap-2  bg-white rounded shadow-xl p-5">
         <div>
           Total Price:{' '}
-          <span className="text-blue-700 font-semibold">
+          <span className="text-blueBg font-semibold">
             {cart?.totalPrice} ₺
           </span>
         </div>

@@ -1,7 +1,6 @@
 import { useContext, useEffect } from 'react'
 import AppContext from '../context/AppContext'
-import { products } from '../data/example'
-import { CartProductItem, ProductItem } from '../types'
+import { CartProductItem, ProductItem } from '../types/types'
 import Pagination from '../components/Pagination'
 import ProductList from '../components/ProductList'
 
@@ -10,9 +9,8 @@ const ShopPage: React.FC = () => {
   if (!context) {
     throw new Error('context error ShopPage')
   }
-  const { pagination, setPagination, cart, setCart } = context
-  const data = products
-  const numberOfPages = Math.ceil(products.length / pagination.limit)
+  const { pagination, setPagination, cart, setCart, filteredProducts } = context
+  const numberOfPages = Math.ceil(filteredProducts.length / pagination.limit)
 
   const navigateToPage = (pageNumber: number) => {
     setPagination({

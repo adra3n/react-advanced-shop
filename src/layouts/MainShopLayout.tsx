@@ -13,13 +13,14 @@ const MainShopLayout: React.FC<MainShopLayoutProps> = ({
   children,
   withFilters,
 }) => {
-  const [search, setSearch] = useState('')
-  const [sortOption, setSortOption] = useState('Old to New')
   const context = useContext(AppContext)
   if (!context) {
     throw new Error('context error MainShopLayout')
   }
-  const { cart, setCart } = context
+  const { cart, setCart, products, setFilteredProducts } = context
+
+  const [search, setSearch] = useState('')
+  const [sortOption, setSortOption] = useState('Old to New')
 
   const handleSearch = (newSearch: string) => {
     setSearch(newSearch)
@@ -28,15 +29,21 @@ const MainShopLayout: React.FC<MainShopLayoutProps> = ({
   const handleSortChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSortOption(event.target.value)
   }
+  const handleBrandFilter = (brand: string): void => {}
+
+  const handleModelFilter = (model: string): void => {}
 
   return (
-    <div className="w-screen h-screen bg-gray-200">
+    <div>
       <Header handleSearch={handleSearch} search={search} />
       <main className="pt-16 flex flex-row">
         {withFilters && (
           <FiltersSection
             sortOption={sortOption}
             handleSortChange={handleSortChange}
+            products={products}
+            handleBrandFilter={handleBrandFilter}
+            handleModelFilter={handleModelFilter}
           />
         )}
         {children}

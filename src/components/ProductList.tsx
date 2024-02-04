@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { products } from '../data/example'
-import { ProductItem } from '../types'
+import { ProductItem } from '../types/types'
 import Product from './Product'
 import AppContext from '../context/AppContext'
 
@@ -24,12 +24,8 @@ const ProductList: React.FC<ProductListProps> = ({ handleAddToCart }) => {
       {products
         .slice(pagination.start, pagination.perPage)
         .map((product, i) => (
-          <button onClick={() => handleProductClick}>
-            <Product
-              key={i}
-              product={product}
-              handleAddToCart={handleAddToCart}
-            />
+          <button key={i} onClick={() => handleProductClick}>
+            <Product product={product} handleAddToCart={handleAddToCart} />
           </button>
         ))}
     </div>

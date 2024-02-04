@@ -1,5 +1,5 @@
 import React from 'react'
-import { ProductItem } from '../types'
+import { ProductItem } from '../types/types'
 import Button from './Button'
 
 type ProductProps = {
@@ -10,7 +10,7 @@ type ProductProps = {
 const Product: React.FC<ProductProps> = ({ product, handleAddToCart }) => (
   <div className="flex flex-col items-start justify-between gap-3 w-48 m-3 bg-white rounded p-5 shadow-lg">
     <img className="rounded" src={product.image} alt={product.name} />
-    <p className="text-sm text-blue-700">{product.price} ₺</p>
+    <p className="text-sm text-blueBg">{product.price} ₺</p>
     <p className="text-sm h-8">{product.name}</p>
     <Button onClick={() => handleAddToCart(product)}>Add to cart</Button>
   </div>

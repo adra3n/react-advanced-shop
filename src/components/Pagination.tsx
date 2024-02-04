@@ -1,5 +1,5 @@
 import React from 'react'
-import { PaginationItem, ProductItem } from '../types'
+import { PaginationItem, ProductItem } from '../types/types'
 
 type PaginationProps = {
   pagination: PaginationItem
@@ -36,7 +36,7 @@ const Pagination: React.FC<PaginationProps> = ({
           {pagination.page - 1}
         </button>
       )}
-      <span className="px-4 py-2 bg-gray-200 text-blue-700 rounded">
+      <span className="px-4 py-2 bg-beigeBg text-blueBg rounded">
         {pagination.page}
       </span>
       {pagination.page < numberOfPages && (
