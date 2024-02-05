@@ -57,7 +57,7 @@ const ShopPage: React.FC = () => {
   }, [])
 
   return (
-    <div className=" flex flex-col justify-between items-center flex-1 ">
+    <div className="flex flex-col justify-between items-center w-full ">
       <ProductList handleAddToCart={handleAddToCart} />
       <Pagination
         navigateToPage={navigateToPage}

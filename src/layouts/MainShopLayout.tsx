@@ -34,8 +34,12 @@ const MainShopLayout: React.FC<MainShopLayoutProps> = ({
   const handleModelFilter = (model: string): void => {}
 
   return (
-    <div>
-      <Header handleSearch={handleSearch} search={search} />
+    <div className="w-screen h-screen ">
+      <Header
+        handleSearch={handleSearch}
+        search={search}
+        totalPrice={cart?.totalPrice ?? 0}
+      />
       <main className="pt-16 flex flex-row">
         {withFilters && (
           <FiltersSection

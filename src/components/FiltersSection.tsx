@@ -39,7 +39,7 @@ const FiltersSection: React.FC<FiltersSectionProps> = ({
   }, [products])
 
   return (
-    <div className="flex flex-col w-56 gap-5 mt-10 ml-32">
+    <div className="flex flex-col gap-5 mt-10 md:ml-[5vw] ml-2  md:w-56 w-36">
       <div>
         <h4 className="mb-1 text-xs text-gray-400">Sort By</h4>
         <div className="flex flex-col justify-between bg-white rounded shadow-xl p-3">

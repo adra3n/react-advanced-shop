@@ -15,18 +15,14 @@ const ProductList: React.FC<ProductListProps> = ({ handleAddToCart }) => {
   }
   const { pagination } = context
 
-  const handleProductClick = () => {
-    console.log('product clicked')
-  }
-
   return (
-    <div className="text-2xl font-bold my-10 flex flex-row flex-wrap justify-center ">
+    <div className="text-2xl font-bold my-10 flex flex-row flex-wrap justify-center min-w-[250px] ">
       {products
         .slice(pagination.start, pagination.perPage)
         .map((product, i) => (
-          <button key={i} onClick={() => handleProductClick}>
+          <div key={i}>
             <Product product={product} handleAddToCart={handleAddToCart} />
-          </button>
+          </div>
         ))}
     </div>
   )
