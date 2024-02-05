@@ -1,6 +1,7 @@
 import React from 'react'
 import { ProductItem } from '../types/types'
 import Button from './Button'
+import useTLFormatter from '../hooks/useTLFormat'
 
 type ProductProps = {
   product: ProductItem
@@ -17,7 +18,7 @@ const Product: React.FC<ProductProps> = ({ product, handleAddToCart }) => (
     onClick={handleProductClick}
   >
     <img className="rounded" src={product.image} alt={product.name} />
-    <p className="text-sm text-blueBg">{product.price} ₺</p>
+    <p className="text-sm text-blueBg">{useTLFormatter(+product.price)} ₺</p>
     <p className="text-sm h-8">{product.name}</p>
     <Button onClick={() => handleAddToCart(product)}>Add to cart</Button>
   </div>

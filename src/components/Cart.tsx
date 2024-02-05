@@ -1,3 +1,4 @@
+import useTLFormatter from '../hooks/useTLFormat'
 import { CartItem, CartProductItem } from '../types/types'
 import Button from './Button'
 
@@ -56,7 +57,9 @@ const Cart = ({ cart, setCart }: CartProps) => {
               >
                 <div className="flex flex-col md:h-12 h-16  items-start justify-center mb-2  ">
                   <p className="text-xs ">{product.name}</p>
-                  <p className="text-blueBg text-xs">{product.price} ₺</p>
+                  <p className="text-blueBg text-xs">
+                    {useTLFormatter(cart?.totalPrice)} ₺
+                  </p>
                 </div>
                 <div className="flex items-center md:h-12 h-16 gap-1 font-bold">
                   <button onClick={() => handleDecrease(product)}>-</button>
@@ -78,7 +81,7 @@ const Cart = ({ cart, setCart }: CartProps) => {
         <div>
           Total Price:{' '}
           <span className="text-blueBg font-semibold">
-            {cart?.totalPrice} ₺
+            {useTLFormatter(cart?.totalPrice)} ₺
           </span>
         </div>
         <Button onClick={handleCheckout}>Checkout</Button>

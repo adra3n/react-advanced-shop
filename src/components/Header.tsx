@@ -1,4 +1,5 @@
 import React, { ChangeEvent } from 'react'
+import useTLFormat from '../hooks/useTLFormat'
 
 type HeaderProps = {
   search: string
@@ -16,19 +17,22 @@ const Header: React.FC<HeaderProps> = ({
       <div className="text-left md:w-56 w-36 md:ml-[4vw] ml-4">
         <h1 className="text-white text-2xl font-bold md:px-5">Eteration</h1>
       </div>
-      <input
-        type="text"
-        placeholder="Search"
-        className="p-2 rounded md:w-96 text-gray-700"
-        value={search}
-        onChange={(e) => handleSearch(e.target.value)}
-      />
-
-      <div className="flex-1 flex gap-5 flex-row justify-end mr-[5vw]">
-        <div>{totalPrice}</div>
+      <div className=" flex flex-1">
+        <input
+          type="text"
+          placeholder="Search"
+          className="p-2 rounded text-gray-700 md:w-96 w-56 ml-5 "
+          value={search}
+          onChange={(e) => handleSearch(e.target.value)}
+        />
       </div>
-      <div className="flex-2 flex gap-5 flex-row justify-end mr-[5vw]">
-        <div>{totalPrice}</div>
+      <div className="flex flex-row md:mr-[5vw] mr-2  md:w-72 w-40">
+        <div className="flex-1 flex justify-end ">
+          <div>{useTLFormat(totalPrice)} ₺</div>
+        </div>
+        <div className="flex justify-end ">
+          <div>{useTLFormat(totalPrice)} ₺</div>
+        </div>
       </div>
     </header>
   )
