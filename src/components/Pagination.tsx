@@ -37,7 +37,7 @@ const Pagination: React.FC<PaginationProps> = ({
         </button>
       )}
       <span className="px-4 py-2 bg-beigeBg text-blueBg rounded">
-        {pagination.page}
+        {numberOfPages > 0 ? pagination.page : null}
       </span>
       {pagination.page < numberOfPages && (
         <button
@@ -56,7 +56,7 @@ const Pagination: React.FC<PaginationProps> = ({
             className=" px-4 py-2 "
             onClick={() => navigateToPage(numberOfPages)}
           >
-            {numberOfPages}
+            {numberOfPages > 0 ? numberOfPages : null}
           </button>
         )}
       {pagination.page < numberOfPages && (

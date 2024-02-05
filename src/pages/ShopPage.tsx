@@ -43,7 +43,7 @@ const ShopPage: React.FC = () => {
 
     //totalPrice
     const totalPrice = newProducts.reduce(
-      (total, product) => total + parseFloat(product.price) * product.count,
+      (total, product) => total + +product.price * product.count,
       0
     )
 

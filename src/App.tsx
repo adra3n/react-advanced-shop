@@ -1,18 +1,22 @@
 // src/pages/App.tsx
 
-import React, { useState } from 'react'
-import { products } from './data/example'
-import { PaginationItem, CartItem, ProductItem } from './types/types'
+import React, { useEffect, useState } from 'react'
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
+import axios from 'axios'
+
 import AppContext from './context/AppContext'
+
+import ProductPageLayout from './layouts/ProductPageLayout'
 import MainShopLayout from './layouts/MainShopLayout'
 import ShopPage from './pages/ShopPage'
+import ProductDetails from './pages/ProductDetails'
 
-const initialProducts = [...products]
+import { PaginationItem, CartItem, ProductItem } from './types/types'
 
 const App: React.FC = () => {
-  const [products, setProducts] = useState<ProductItem[]>(initialProducts)
+  const [products, setProducts] = useState<ProductItem[]>([])
   const [filteredProducts, setFilteredProducts] =
-    useState<ProductItem[]>(initialProducts)
+    useState<ProductItem[]>(products)
   const [pagination, setPagination] = useState<PaginationItem>({
     limit: 12,
     total: filteredProducts.length,
@@ -29,6 +33,28 @@ const App: React.FC = () => {
     }
   })
 
+  const fetchProducts = async () => {
+    try {
+      const response = await axios.get(
+        'https://5fc9346b2af77700165ae514.mockapi.io/products'
+      )
+      setProducts(response.data)
+
+      console.log('got response>>>', response.data)
+      console.log('set products>>>', products)
+    } catch (error) {
+      console.error('fetch error products>>>', error)
+    }
+  }
+  useEffect(() => {
+    fetchProducts()
+  }, [])
+  useEffect(() => {
+    console.log('updated products>>>', products)
+    setFilteredProducts(products)
+    console.log('updated filteredProducts>>>', filteredProducts)
+  }, [products])
+
   return (
     <AppContext.Provider
       value={{
@@ -41,9 +67,26 @@ const App: React.FC = () => {
         setFilteredProducts,
       }}
     >
-      <MainShopLayout withFilters={true}>
-        <ShopPage />
-      </MainShopLayout>
+      <Router>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <MainShopLayout>
+                <ShopPage />
+              </MainShopLayout>
+            }
+          />
+          <Route
+            path="/product/:id"
+            element={
+              <ProductPageLayout>
+                <ProductDetails />
+              </ProductPageLayout>
+            }
+          />
+        </Routes>
+      </Router>
     </AppContext.Provider>
   )
 }
