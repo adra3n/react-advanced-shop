@@ -49,8 +49,11 @@ const ShopPage: React.FC = () => {
 
     const newCart = { products: newProducts, totalPrice }
     setCart(newCart)
-    localStorage.setItem('cart', JSON.stringify(newCart))
   }
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(cart))
+    console.log('cart>>>', cart)
+  }, [cart])
 
   useEffect(() => {
     navigateToPage(1)

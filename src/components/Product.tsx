@@ -13,7 +13,7 @@ const handleProductClick = () => {
 
 const Product: React.FC<ProductProps> = ({ product, handleAddToCart }) => (
   <div
-    className="flex flex-col items-start justify-between gap-3 w-48 m-3 bg-white rounded p-5 shadow-lg  min-w-[50px]"
+    className="flex flex-col items-start justify-between gap-3  md:w-[10] w-56 m-3 bg-white rounded p-5 shadow-lg  min-w-[50px] "
     onClick={handleProductClick}
   >
     <img className="rounded" src={product.image} alt={product.name} />

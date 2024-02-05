@@ -48,7 +48,7 @@ const Cart = ({ cart, setCart }: CartProps) => {
     <div className="flex flex-col gap-5 mt-12 md:mr-[5vw] mr-2  md:w-72 w-40">
       <div className="flex flex-col items-center justify-between min-w-28 w-full bg-white rounded shadow-xl py-5">
         <div className="">
-          {cart &&
+          {cart && cart.products.length > 0 ? (
             cart.products.map((product: CartProductItem, i: number) => (
               <div
                 key={i}
@@ -66,7 +66,12 @@ const Cart = ({ cart, setCart }: CartProps) => {
                   <button onClick={() => handleIncrease(product)}>+</button>
                 </div>
               </div>
-            ))}
+            ))
+          ) : (
+            <p className="text-gray-500 text-center p-5 text-sm">
+              Your shopping cart is <span className="font-bold">empty!</span>
+            </p>
+          )}
         </div>
       </div>
       <div className="flex flex-col  gap-2  bg-white rounded shadow-xl p-5">
