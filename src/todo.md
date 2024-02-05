@@ -16,6 +16,7 @@
 - [ ] Ürünlere Add to carzelliği
 - [ ] Sepet için componenenecek. İçinde artırma ve azaltma olmalı. Bu bir düzen olabilir
 - [ ] Ürün detay sayfası
+- [ ] 404 sayfası
 
 - [ ] Add to cart düzenlenecek unutma!
 

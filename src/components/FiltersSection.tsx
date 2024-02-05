@@ -1,5 +1,7 @@
 import React, { ChangeEvent, useEffect, useState } from 'react'
 import { ProductItem } from '../types/types'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 
 type FiltersSectionProps = {
   sortOption: string
@@ -62,11 +64,13 @@ const FiltersSection: React.FC<FiltersSectionProps> = ({
   }
 
   return (
-    <div className="flex flex-col gap-5 mt-10 md:ml-[5vw] ml-2  md:w-56 w-36">
+    <div className="flex md:flex-col flex-row items-start md:justify-start justify-center md:gap-5 gap-2 mt-10 md:ml-[5vw] md:w-36 ">
       <div>
-        <h4 className="mb-1 text-xs text-gray-400">Sort By</h4>
-        <div className="flex flex-col justify-between bg-white rounded shadow-xl p-3">
-          <form className="flex flex-col justify-between gap-2 text-sm">
+        <h4 className="md:mb-1 text-xs md:text-start text-center text-gray-400">
+          Sort by
+        </h4>
+        <div className="flex flex-col justify-between bg-white rounded shadow-xl p-3  md:text-sm text-xs md:w-full w-32">
+          <form className="flex flex-col justify-between gap-4 py-4 md:text-sm text-xs">
             <label>
               <input
                 type="radio"
@@ -112,15 +116,23 @@ const FiltersSection: React.FC<FiltersSectionProps> = ({
       </div>
 
       <div>
-        <h4 className="mb-1 text-xs text-gray-400">Brands</h4>
-        <div className="flex flex-col justify-between bg-white rounded shadow-xl p-3 ">
-          <input
-            type="text"
-            placeholder="Search"
-            className="p-2 rounded text-gray-700 bg-beigeBg my-2"
-            value={brandSearch}
-            onChange={(e) => setBrandSearch(e.target.value)}
-          />
+        <h4 className="md:mb-1 text-xs md:text-start text-center text-gray-400">
+          Brands
+        </h4>
+        <div className="flex flex-col justify-between bg-white rounded shadow-xl p-3  md:text-sm text-xs md:w-full w-32">
+          <div className="relative flex">
+            <input
+              type="text"
+              placeholder="Search"
+              className="pl-8 p-2 rounded text-blue-500 bg-beigeBg my-2 w-full placeholder-blue-500 md:text-sm text-xs"
+              value={brandSearch}
+              onChange={(e) => setBrandSearch(e.target.value)}
+            />
+            <FontAwesomeIcon
+              icon={faMagnifyingGlass}
+              className="absolute left-2 top-1/2 transform -translate-y-1/2 text-blue-500"
+            />
+          </div>
           <div className="flex flex-col max-h-32 overflow-hidden overflow-y-scroll">
             {brands
               .filter((brand) => brand.includes(brandSearch))
@@ -140,16 +152,25 @@ const FiltersSection: React.FC<FiltersSectionProps> = ({
       </div>
 
       <div>
-        <h4 className="mb-1 text-xs text-gray-400">Models</h4>
-        <div className="flex flex-col justify-between bg-white rounded shadow-xl p-3 ">
-          <input
-            type="text"
-            placeholder="Search"
-            className="p-2 rounded text-gray-700 bg-beigeBg my-2"
-            value={modelSearch}
-            onChange={(e) => setModelSearch(e.target.value)}
-          />
-          <div className="flex flex-col max-h-32 overflow-hidden overflow-y-scroll">
+        <h4 className="mb-1 text-xs md:text-start text-center text-gray-400">
+          Models
+        </h4>
+        <div className="flex flex-col justify-between bg-white rounded shadow-xl p-3 md:w-full w-32 md:text-sm text-xs">
+          <div className="relative flex">
+            <input
+              type="text"
+              placeholder="Search"
+              className="pl-8 p-2 rounded text-blue-500 bg-beigeBg my-2 w-full placeholder-blue-500"
+              value={modelSearch}
+              onChange={(e) => setModelSearch(e.target.value)}
+            />
+            <FontAwesomeIcon
+              icon={faMagnifyingGlass}
+              className="absolute left-2 top-1/2 transform -translate-y-1/2 text-blue-500"
+            />
+          </div>
+
+          <div className="flex flex-col max-h-32 overflow-hidden overflow-y-scroll md:text-sm text-xs">
             {models
               .filter((model) => model.includes(modelSearch))
               .map((model, i) => (

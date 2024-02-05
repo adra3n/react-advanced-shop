@@ -16,7 +16,7 @@ const Product: React.FC<ProductProps> = ({ product, handleAddToCart }) => {
     navigate(`/product/${product.id}`)
   }
   return (
-    <div className="flex flex-col items-start justify-between gap-3  md:w-[10] w-56 m-3 bg-white rounded p-5 shadow-lg  min-w-[50px] ">
+    <div className="flex flex-col items-start justify-between gap-3 md:w-64 w-80 m-3 bg-white rounded p-5 shadow-lg">
       <img
         className="rounded cursor-pointer"
         src={product.image}

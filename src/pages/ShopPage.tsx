@@ -3,6 +3,7 @@ import AppContext from '../context/AppContext'
 import { CartProductItem, ProductItem } from '../types/types'
 import Pagination from '../components/Pagination'
 import ProductList from '../components/ProductList'
+import { useAddToCart } from '../hooks/useAddToCart'
 
 const ShopPage: React.FC = () => {
   const context = useContext(AppContext)
@@ -20,47 +21,17 @@ const ShopPage: React.FC = () => {
       perPage: pageNumber * pagination.limit,
     })
   }
-  const handleAddToCart = (product: ProductItem) => {
-    //for ts
-    if (!cart) {
-      throw new Error('cart is not available')
-    }
 
-    //if product is already in cart
-    const isProductInCart = cart.products.some((p) => p.id === product.id)
+  //add to cart hook
+  const handleAddToCart = useAddToCart()
 
-    let newProducts
-    if (isProductInCart) {
-      //if so increaase count
-      newProducts = cart.products.map((p) =>
-        p.id !== product.id ? p : { ...p, count: p.count + 1 }
-      )
-    } else {
-      //if not add product
-      const newProduct: CartProductItem = { ...product, count: 1 }
-      newProducts = [...cart.products, newProduct]
-    }
-
-    //totalPrice
-    const totalPrice = newProducts.reduce(
-      (total, product) => total + +product.price * product.count,
-      0
-    )
-
-    const newCart = { products: newProducts, totalPrice }
-    setCart(newCart)
-  }
-  useEffect(() => {
-    localStorage.setItem('cart', JSON.stringify(cart))
-    console.log('cart>>>', cart)
-  }, [cart])
-
+  //open page 1 on start
   useEffect(() => {
     navigateToPage(1)
   }, [])
 
   return (
-    <div className="flex flex-col justify-between items-center w-full ">
+    <div className="flex flex-col justify-between items-center flex-1 max-w-[1200px]">
       <ProductList handleAddToCart={handleAddToCart} />
       <Pagination
         navigateToPage={navigateToPage}

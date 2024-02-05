@@ -15,7 +15,7 @@ const ProductList: React.FC<ProductListProps> = ({ handleAddToCart }) => {
   const { pagination, filteredProducts } = context
 
   return (
-    <div className="text-2xl font-bold my-10 flex flex-row flex-wrap justify-center min-w-[250px] max-w-[1200px]">
+    <div className="text-2xl font-bold my-10 flex flex-row flex-wrap justify-center items-center flex-1 ">
       {filteredProducts
         .slice(pagination.start, pagination.perPage)
         .map((product, i) => (

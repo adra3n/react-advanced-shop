@@ -9,7 +9,7 @@ interface CartProps {
 
 const Cart = ({ cart, setCart }: CartProps) => {
   const handleCheckout = () => {
-    window.alert(`checkout total price: ${cart?.totalPrice}₺`)
+    window.alert(`checkout total price: ${useTLFormatter(cart?.totalPrice)}₺`)
   }
 
   const handleIncrease = (product: CartProductItem) => {
@@ -46,9 +46,9 @@ const Cart = ({ cart, setCart }: CartProps) => {
   }
 
   return (
-    <div className="flex flex-col gap-5 mt-12 md:mr-[5vw] mr-2  md:w-72 w-40">
-      <div className="flex flex-col items-center justify-between min-w-28 w-full bg-white rounded shadow-xl py-5">
-        <div className="">
+    <div className="flex flex-col gap-5 md:mt-12 mt-32 h-full md:bg-white bg-beigeBg md:pt-0 pt-5">
+      <div className="flex flex-col items-center justify-between bg-white rounded shadow-xl py-5 md:w-48">
+        <div className="md:w-full w-64">
           {cart && cart.products.length > 0 ? (
             cart.products.map((product: CartProductItem, i: number) => (
               <div

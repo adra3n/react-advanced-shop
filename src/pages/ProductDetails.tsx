@@ -1,13 +1,15 @@
 import React, { useContext, useEffect, useMemo } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import Button from '../components/Button'
 import AppContext from '../context/AppContext'
 import useTLFormatter from '../hooks/useTLFormat'
+import { useAddToCart } from '../hooks/useAddToCart'
 
 const ProductDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>()
+  const navigate = useNavigate()
+
   const context = useContext(AppContext)
-  //for ts
   if (!context) {
     throw new Error('context error ProductDetailsPage')
   }
@@ -17,25 +19,35 @@ const ProductDetails: React.FC = () => {
     return products.find((product) => product.id === id)
   }, [products, id])
 
+  useEffect(() => {
+    if (!product) {
+      navigate('/404', { replace: true })
+    }
+  }, [product, navigate])
+
   // if no product throw error
   if (!product) {
-    throw new Error(`no product with Id >>> ${id}`)
+    return null
   }
+  //add to cart hook
+  const handleAddToCart = useAddToCart()
+
   return (
-    <div className="flex flex-row flex-wrap items-center justify-between gap-10 m-3 mt-12 bg-white rounded p-5 shadow-lg flex-1 ">
+    <div className="flex flex-row flex-wrap items-start justify-between gap-10 m-3 mt-12 bg-white rounded p-5 shadow-lg flex-1 ">
       <img
         className="flex flex-1 rounded"
         src={product.image}
         alt={product.name}
       />
-      <div className=" flex-col  justify-between gap-3 h-full min-w-48 flex-1">
-        <div className="flex  flex-col items-center justify-between w-full">
+      <div className=" flex-col  justify-between   min-w-48 flex-1">
+        <div className="flex  flex-col items-center justify-between md:items-start items-center w-full mb-8">
           <p className="text-lg text-blueBg">
             {useTLFormatter(+product.price)} ₺
           </p>
-          <p className="text-lg h-8">{product.name}</p>
+          <p className="text-lg h-12">{product.name}</p>
+          <Button onClick={() => handleAddToCart(product)}>Add to cart</Button>
         </div>
-        <Button onClick={() => {}}>Add to cart</Button>
+        <p className="md:text-base text-sm mb-2">{product.description}</p>
       </div>
     </div>
   )

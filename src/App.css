@@ -3,12 +3,13 @@
   width: 100vw;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+  background-color: #e5e7eb;
 }
 
 body {
   height: 100%;
   width: 100%;
-  background-color: #e5e7eb;
 }
 
 .App {

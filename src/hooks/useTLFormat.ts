@@ -1,5 +1,3 @@
-import { useState, useEffect } from 'react'
-
 const useTLFormatter = (value: number = 0): string => {
   let formatter = new Intl.NumberFormat('tr-TR', {
     style: 'currency',

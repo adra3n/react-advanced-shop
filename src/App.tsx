@@ -12,6 +12,7 @@ import ShopPage from './pages/ShopPage'
 import ProductDetails from './pages/ProductDetails'
 
 import { PaginationItem, CartItem, ProductItem } from './types/types'
+import NotFound from './pages/NotFound'
 
 const App: React.FC = () => {
   const [products, setProducts] = useState<ProductItem[]>([])
@@ -33,11 +34,13 @@ const App: React.FC = () => {
     }
   })
 
+  const BACKEND_URL =
+    process.env.REACT_APP_BACKEND_URL ??
+    'https://5fc9346b2af77700165ae514.mockapi.io'
+
   const fetchProducts = async () => {
     try {
-      const response = await axios.get(
-        'https://5fc9346b2af77700165ae514.mockapi.io/products'
-      )
+      const response = await axios.get(`${BACKEND_URL}/products`)
       setProducts(response.data)
 
       console.log('got response>>>', response.data)
@@ -49,11 +52,17 @@ const App: React.FC = () => {
   useEffect(() => {
     fetchProducts()
   }, [])
+
   useEffect(() => {
     console.log('updated products>>>', products)
     setFilteredProducts(products)
     console.log('updated filteredProducts>>>', filteredProducts)
   }, [products])
+
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(cart))
+    console.log('cart>>>', cart)
+  }, [cart])
 
   return (
     <AppContext.Provider
@@ -85,6 +94,7 @@ const App: React.FC = () => {
               </ProductPageLayout>
             }
           />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
     </AppContext.Provider>

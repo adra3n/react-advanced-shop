@@ -28,7 +28,6 @@ const MainShopLayout: React.FC<MainShopLayoutProps> = ({ children }) => {
 
   const handleSortChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     console.log('sort change>>>', event.target.value)
-
     setSortOption(event.target.value)
   }
 
@@ -50,13 +49,15 @@ const MainShopLayout: React.FC<MainShopLayoutProps> = ({ children }) => {
       filtered = filtered.filter((product) => models.includes(product.model))
     }
     if (search.length > 0) {
+      const lowcaseSearch = search.toLowerCase()
       filtered = filtered.filter(
         (product) =>
-          product.model === search ||
-          product.brand === search ||
-          product.name === search
+          product.model.toLocaleLowerCase().includes(lowcaseSearch) ||
+          product.brand.toLocaleLowerCase().includes(lowcaseSearch) ||
+          product.name.toLocaleLowerCase().includes(lowcaseSearch)
       )
     }
+
     //sort
     let sorted = [...filtered]
     switch (sortOption) {
@@ -86,13 +87,13 @@ const MainShopLayout: React.FC<MainShopLayoutProps> = ({ children }) => {
   }, [products, brands, models, search, sortOption])
 
   return (
-    <div className="w-screen h-screen ">
+    <div className="flex flex-1 max-w-screen">
       <Header
         handleSearch={handleSearch}
         search={search}
         totalPrice={cart?.totalPrice ?? 0}
       />
-      <main className="pt-16 flex flex-row">
+      <main className="pt-16 flex md:flex-row flex-col w-screen  md:justify-between justify-start lg:px-32 md:px-16 sm:px-8">
         <FiltersSection
           sortOption={sortOption}
           handleSortChange={handleSortChange}
@@ -100,8 +101,8 @@ const MainShopLayout: React.FC<MainShopLayoutProps> = ({ children }) => {
           handleBrandFilter={handleBrandFilter}
           handleModelFilter={handleModelFilter}
         />
+        <div className="flex flex-1 justify-center"> {children}</div>
 
-        {children}
         <Cart cart={cart} setCart={setCart} />
       </main>
     </div>
