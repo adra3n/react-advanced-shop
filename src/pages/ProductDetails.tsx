@@ -42,10 +42,10 @@ const ProductDetails: React.FC = () => {
       />
       <div className=" flex-col  justify-between   min-w-48 flex-1">
         <div className="flex  flex-col items-center justify-between md:items-start  w-full mb-8">
-          <p className="text-lg text-blueBg">
+          <p className="text-xl ">{product.name}</p>
+          <p className="text-xl text-blueBg h-12">
             {useTLFormatter(+product.price)} ₺
           </p>
-          <p className="text-lg h-12">{product.name}</p>
           <Button onClick={() => handleAddToCart(product)}>Add to cart</Button>
         </div>
         <p className="md:text-base text-sm mb-2">{product.description}</p>
