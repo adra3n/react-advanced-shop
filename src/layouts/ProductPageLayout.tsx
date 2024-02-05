@@ -1,7 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react'
 import AppContext from '../context/AppContext'
 import Cart from '../components/Cart'
-import FiltersSection from '../components/FiltersSection'
 import Header from '../components/Header'
 
 type ProductPageLayoutProps = {
@@ -13,10 +12,11 @@ const ProductPageLayout: React.FC<ProductPageLayoutProps> = ({ children }) => {
   if (!context) {
     throw new Error('context error ProductPageLayout')
   }
-  const { cart, setCart, products, setFilteredProducts } = context
+  const { cart, setCart } = context
 
   const [search, setSearch] = useState('')
 
+  //inactive search not needed
   const handleSearch = (newSearch: string) => {
     setSearch(newSearch)
     console.log('search change>>>', newSearch)
@@ -30,7 +30,6 @@ const ProductPageLayout: React.FC<ProductPageLayoutProps> = ({ children }) => {
         totalPrice={cart?.totalPrice ?? 0}
       />
       <main className="pt-16 flex md:flex-row flex-col   md:justify-between justify-start lg:px-32 md:px-16 sm:px-8 ">
-        {/* <main className="pt-16 flex flex-row md:ml-[4vw] ml-2"> */}
         {children}
         <Cart cart={cart} setCart={setCart} />
       </main>

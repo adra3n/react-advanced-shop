@@ -13,6 +13,10 @@ import NotFound from './pages/NotFound'
 import { PaginationItem, CartItem, ProductItem } from './types/types'
 
 const App: React.FC = () => {
+  const BACKEND_URL =
+    process.env.REACT_APP_BACKEND_URL ??
+    'https://5fc9346b2af77700165ae514.mockapi.io'
+
   const [products, setProducts] = useState<ProductItem[]>([])
   const [filteredProducts, setFilteredProducts] =
     useState<ProductItem[]>(products)
@@ -24,6 +28,7 @@ const App: React.FC = () => {
     perPage: 12,
   })
   const [cart, setCart] = useState<CartItem>(() => {
+    //chck cart from local storage
     const savedCart = localStorage.getItem('cart')
     if (savedCart) {
       return JSON.parse(savedCart)
@@ -31,10 +36,6 @@ const App: React.FC = () => {
       return { totalPrice: 0, products: [] }
     }
   })
-
-  const BACKEND_URL =
-    process.env.REACT_APP_BACKEND_URL ??
-    'https://5fc9346b2af77700165ae514.mockapi.io'
 
   const fetchProducts = async () => {
     try {
@@ -47,16 +48,18 @@ const App: React.FC = () => {
       console.error('fetch error products>>>', error)
     }
   }
+  //getproducts on mount
   useEffect(() => {
     fetchProducts()
   }, [])
 
+  //update filteredProducts if products change
   useEffect(() => {
-    console.log('updated products>>>', products)
     setFilteredProducts(products)
-    console.log('updated filteredProducts>>>', filteredProducts)
+    // console.log('updated filteredProducts>>>', filteredProducts)
   }, [products])
 
+  //update cart on localstorage
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(cart))
     console.log('cart>>>', cart)

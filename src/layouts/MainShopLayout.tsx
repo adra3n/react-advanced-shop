@@ -21,6 +21,7 @@ const MainShopLayout: React.FC<MainShopLayoutProps> = ({ children }) => {
   const [brands, setBrands] = useState<string[]>([])
   const [models, setModels] = useState<string[]>([])
 
+  //  handlers for filters
   const handleSearch = (newSearch: string) => {
     setSearch(newSearch)
     console.log('search change>>>', newSearch)

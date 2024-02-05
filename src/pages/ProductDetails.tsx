@@ -10,6 +10,7 @@ const ProductDetails: React.FC = () => {
   const navigate = useNavigate()
 
   const context = useContext(AppContext)
+
   if (!context) {
     throw new Error('context error ProductDetailsPage')
   }

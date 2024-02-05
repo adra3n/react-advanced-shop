@@ -4,7 +4,10 @@ import { MemoryRouter } from 'react-router-dom'
 import Product from './components/Product'
 import Header from './components/Header'
 import FiltersSection from './components/FiltersSection'
+import Cart from './components/Cart'
+import NotFound from './pages/NotFound'
 import { products } from './data/mock'
+import Pagination from './components/Pagination'
 
 const product = {
   id: 1,
@@ -188,4 +191,76 @@ it('renders model options', () => {
   products.forEach((product) => {
     expect(getByLabelText(product.model)).toBeInTheDocument()
   })
+})
+
+//Cart
+
+it('renders empty cart message when cart is empty', () => {
+  const setCart = jest.fn()
+  const { getByText } = render(
+    <MemoryRouter>
+      <Cart cart={{ products: [], totalPrice: 0 }} setCart={setCart} />{' '}
+    </MemoryRouter>
+  )
+
+  expect(getByText('empty!')).toBeInTheDocument()
+})
+
+//404
+
+it('renders NotFound page', () => {
+  const { getByText } = render(
+    <MemoryRouter>
+      <NotFound />
+    </MemoryRouter>
+  )
+
+  expect(getByText('404 Not Found')).toBeInTheDocument()
+  expect(getByText('Return to home')).toBeInTheDocument()
+})
+
+//Pagination
+it('renders pagination first page button', () => {
+  const navigateToPage = jest.fn()
+  const { getByText } = render(
+    <MemoryRouter>
+      <Pagination
+        pagination={{ limit: 10, total: 100, start: 0, page: 5, perPage: 10 }}
+        navigateToPage={navigateToPage}
+        numberOfPages={10}
+      />
+    </MemoryRouter>
+  )
+
+  expect(getByText('1')).toBeInTheDocument()
+})
+
+it('renders last page button correct', () => {
+  const navigateToPage = jest.fn()
+  const { getByText } = render(
+    <MemoryRouter>
+      <Pagination
+        pagination={{ limit: 10, total: 100, start: 0, page: 5, perPage: 10 }}
+        navigateToPage={navigateToPage}
+        numberOfPages={10}
+      />
+    </MemoryRouter>
+  )
+
+  expect(getByText('10')).toBeInTheDocument()
+})
+
+it('renders current page correct', () => {
+  const navigateToPage = jest.fn()
+  const { getByText } = render(
+    <MemoryRouter>
+      <Pagination
+        pagination={{ limit: 10, total: 100, start: 0, page: 5, perPage: 10 }}
+        navigateToPage={navigateToPage}
+        numberOfPages={10}
+      />
+    </MemoryRouter>
+  )
+
+  expect(getByText('5')).toBeInTheDocument()
 })
