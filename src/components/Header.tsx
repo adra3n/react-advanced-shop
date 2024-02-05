@@ -46,7 +46,7 @@ const Header: React.FC<HeaderProps> = ({
         />
       </div>
 
-      <div className="flex flex-row md:mr-0 pr-1 gap-3 md:w-72 justify-end">
+      <div className="flex flex-row md:mr-0 pr-1  lg:gap-5 gap-3 md:w-72 justify-end">
         <div className=" flex justify-end items-center md:gap-2 ml-1  md:flex-row flex-col">
           <FontAwesomeIcon icon={faBriefcase} />
           <div>{useTLFormat(totalPrice)}₺</div>
