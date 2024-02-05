@@ -18,32 +18,36 @@ const MainShopLayout: React.FC<MainShopLayoutProps> = ({ children }) => {
   const [search, setSearch] = useState('')
   const [sortOption, setSortOption] = useState('Old to New')
 
-  const [brand, setBrand] = useState('')
-  const [model, setModel] = useState('')
+  const [brands, setBrands] = useState<string[]>([])
+  const [models, setModels] = useState<string[]>([])
 
   const handleSearch = (newSearch: string) => {
     setSearch(newSearch)
+    console.log('search change>>>', newSearch)
   }
 
   const handleSortChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log('sort change>>>', event.target.value)
+
     setSortOption(event.target.value)
   }
 
-  const handleBrandFilter = (brand: string): void => {
-    setBrand(brand)
+  const handleBrandFilter = (brands: string[]): void => {
+    setBrands(brands)
   }
 
-  const handleModelFilter = (model: string): void => {
-    setModel(model)
+  const handleModelFilter = (models: string[]): void => {
+    setModels(models)
   }
 
-  const filteredSortedProducts = useMemo(() => {
+  useEffect(() => {
     let filtered = products
-    if (brand) {
-      filtered = filtered.filter((product) => product.brand === brand)
+    //filters
+    if (brands.length > 0) {
+      filtered = filtered.filter((product) => brands.includes(product.brand))
     }
-    if (model) {
-      filtered = filtered.filter((product) => product.model === model)
+    if (models.length > 0) {
+      filtered = filtered.filter((product) => models.includes(product.model))
     }
     if (search.length > 0) {
       filtered = filtered.filter(
@@ -53,8 +57,8 @@ const MainShopLayout: React.FC<MainShopLayoutProps> = ({ children }) => {
           product.name === search
       )
     }
+    //sort
     let sorted = [...filtered]
-    console.log('filtered>>>', filtered)
     switch (sortOption) {
       case 'Old to New':
         sorted.sort(
@@ -77,13 +81,9 @@ const MainShopLayout: React.FC<MainShopLayoutProps> = ({ children }) => {
       default:
         break
     }
-
-    return sorted
-  }, [products, brand, model])
-
-  useEffect(() => {
-    setFilteredProducts(filteredSortedProducts)
-  }, [filteredSortedProducts])
+    setFilteredProducts(sorted)
+    console.log(' filtered>>>', sorted)
+  }, [products, brands, models, search, sortOption])
 
   return (
     <div className="w-screen h-screen ">

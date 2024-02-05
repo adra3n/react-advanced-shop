@@ -12,7 +12,7 @@ type ProductProps = {
 const Product: React.FC<ProductProps> = ({ product, handleAddToCart }) => {
   const navigate = useNavigate()
 
-  const handleProductClick = () => {
+  const handleProductDetailsPage = () => {
     navigate(`/product/${product.id}`)
   }
   return (
@@ -21,7 +21,7 @@ const Product: React.FC<ProductProps> = ({ product, handleAddToCart }) => {
         className="rounded cursor-pointer"
         src={product.image}
         alt={product.name}
-        onClick={handleProductClick}
+        onClick={handleProductDetailsPage}
       />
       <p className="text-sm text-blueBg">{useTLFormatter(+product.price)} ₺</p>
       <p className="text-sm h-8">{product.name}</p>

@@ -5,8 +5,8 @@ type FiltersSectionProps = {
   sortOption: string
   handleSortChange: (event: ChangeEvent<HTMLInputElement>) => void
   products: ProductItem[]
-  handleBrandFilter: (brand: string) => void
-  handleModelFilter: (model: string) => void
+  handleBrandFilter: (brands: string[]) => void
+  handleModelFilter: (models: string[]) => void
 }
 
 const FiltersSection: React.FC<FiltersSectionProps> = ({
@@ -21,22 +21,45 @@ const FiltersSection: React.FC<FiltersSectionProps> = ({
   const [brandSearch, setBrandSearch] = useState('')
   const [modelSearch, setModelSearch] = useState('')
 
-  useEffect(() => {
-    let uniqueBrands: string[] = []
-    let uniqueModels: string[] = []
+  const [selectedBrands, setSelectedBrands] = useState<string[]>([])
+  const [selectedModels, setSelectedModels] = useState<string[]>([])
 
+  useEffect(() => {
+    let newBrands: string[] = []
+    let newModels: string[] = []
     products.forEach((product) => {
-      if (!uniqueBrands.includes(product.brand)) {
-        uniqueBrands.push(product.brand)
+      if (!newBrands.includes(product.brand)) {
+        newBrands.push(product.brand)
       }
-      if (!uniqueModels.includes(product.model)) {
-        uniqueModels.push(product.model)
+      if (!newModels.includes(product.model)) {
+        newModels.push(product.model)
       }
     })
-
-    setBrands(uniqueBrands)
-    setModels(uniqueModels)
+    setBrands(newBrands)
+    setModels(newModels)
   }, [products])
+
+  const handleBrandCheckboxChange = (brand: string) => {
+    let newSelectedBrands
+    if (selectedBrands.includes(brand)) {
+      newSelectedBrands = selectedBrands.filter((b) => b !== brand)
+    } else {
+      newSelectedBrands = [...selectedBrands, brand]
+    }
+    setSelectedBrands(newSelectedBrands)
+    handleBrandFilter(newSelectedBrands)
+  }
+
+  const handleModelCheckboxChange = (model: string) => {
+    let newSelectedModels
+    if (selectedModels.includes(model)) {
+      newSelectedModels = selectedModels.filter((m) => m !== model)
+    } else {
+      newSelectedModels = [...selectedModels, model]
+    }
+    setSelectedModels(newSelectedModels)
+    handleModelFilter(newSelectedModels)
+  }
 
   return (
     <div className="flex flex-col gap-5 mt-10 md:ml-[5vw] ml-2  md:w-56 w-36">
@@ -99,16 +122,19 @@ const FiltersSection: React.FC<FiltersSectionProps> = ({
             onChange={(e) => setBrandSearch(e.target.value)}
           />
           <div className="flex flex-col max-h-32 overflow-hidden overflow-y-scroll">
-            {brands.map((brand, i) => (
-              <label key={i}>
-                <input
-                  type="checkbox"
-                  className="mr-1"
-                  onChange={() => handleBrandFilter(brand)}
-                />
-                {brand}
-              </label>
-            ))}
+            {brands
+              .filter((brand) => brand.includes(brandSearch))
+              .map((brand, i) => (
+                <label key={i}>
+                  <input
+                    type="checkbox"
+                    className="mr-1"
+                    checked={selectedBrands.includes(brand)}
+                    onChange={() => handleBrandCheckboxChange(brand)}
+                  />
+                  {brand}
+                </label>
+              ))}
           </div>
         </div>
       </div>
@@ -124,16 +150,19 @@ const FiltersSection: React.FC<FiltersSectionProps> = ({
             onChange={(e) => setModelSearch(e.target.value)}
           />
           <div className="flex flex-col max-h-32 overflow-hidden overflow-y-scroll">
-            {models.map((model, i) => (
-              <label key={i}>
-                <input
-                  type="checkbox"
-                  className="mr-1"
-                  onChange={() => handleModelFilter(model)}
-                />
-                {model}
-              </label>
-            ))}
+            {models
+              .filter((model) => model.includes(modelSearch))
+              .map((model, i) => (
+                <label key={i}>
+                  <input
+                    type="checkbox"
+                    className="mr-1"
+                    checked={selectedModels.includes(model)}
+                    onChange={() => handleModelCheckboxChange(model)}
+                  />
+                  {model}
+                </label>
+              ))}
           </div>
         </div>
       </div>
