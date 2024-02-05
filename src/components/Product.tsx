@@ -16,15 +16,17 @@ const Product: React.FC<ProductProps> = ({ product, handleAddToCart }) => {
     navigate(`/product/${product.id}`)
   }
   return (
-    <div className="flex flex-col items-start justify-between gap-3 md:w-64 w-80 m-3 bg-white rounded p-5 shadow-lg">
+    <div className="flex flex-col items-start justify-between gap-3 md:w-56 w-80 m-3 bg-white rounded p-5 shadow-lg">
       <img
-        className="rounded cursor-pointer"
+        className="rounded cursor-pointer h-48"
         src={product.image}
         alt={product.name}
         onClick={handleProductDetailsPage}
       />
-      <p className="text-sm text-blueBg">{useTLFormatter(+product.price)} ₺</p>
-      <p className="text-sm h-8">{product.name}</p>
+      <p className="text-sm text-blueBg font-normal">
+        {useTLFormatter(+product.price)} ₺
+      </p>
+      <p className="text-sm h-8 font-normal">{product.name}</p>
       <Button onClick={() => handleAddToCart(product)}>Add to cart</Button>
     </div>
   )

@@ -40,7 +40,7 @@ const ProductDetails: React.FC = () => {
         alt={product.name}
       />
       <div className=" flex-col  justify-between   min-w-48 flex-1">
-        <div className="flex  flex-col items-center justify-between md:items-start items-center w-full mb-8">
+        <div className="flex  flex-col items-center justify-between md:items-start  w-full mb-8">
           <p className="text-lg text-blueBg">
             {useTLFormatter(+product.price)} ₺
           </p>

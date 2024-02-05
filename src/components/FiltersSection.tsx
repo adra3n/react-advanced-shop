@@ -64,7 +64,7 @@ const FiltersSection: React.FC<FiltersSectionProps> = ({
   }
 
   return (
-    <div className="flex md:flex-col flex-row items-start md:justify-start justify-center md:gap-5 gap-2 mt-10 md:ml-[5vw] md:w-36 ">
+    <div className="flex md:flex-col flex-row items-start md:justify-start justify-center md:gap-5 gap-2 mt-10 md:ml-[1vw] md:w-36 ">
       <div>
         <h4 className="md:mb-1 text-xs md:text-start text-center text-gray-400">
           Sort by

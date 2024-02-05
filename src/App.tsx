@@ -1,5 +1,3 @@
-// src/pages/App.tsx
-
 import React, { useEffect, useState } from 'react'
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
 import axios from 'axios'
@@ -10,9 +8,9 @@ import ProductPageLayout from './layouts/ProductPageLayout'
 import MainShopLayout from './layouts/MainShopLayout'
 import ShopPage from './pages/ShopPage'
 import ProductDetails from './pages/ProductDetails'
+import NotFound from './pages/NotFound'
 
 import { PaginationItem, CartItem, ProductItem } from './types/types'
-import NotFound from './pages/NotFound'
 
 const App: React.FC = () => {
   const [products, setProducts] = useState<ProductItem[]>([])

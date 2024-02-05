@@ -36,7 +36,7 @@ const Header: React.FC<HeaderProps> = ({
         <input
           type="text"
           placeholder="Search"
-          className="pl-10 p-2 rounded text-blue-800 ml-2 md:w-full md:max-w-[350px] max-w-36 placeholder-blue-800"
+          className="pl-10 p-2 rounded text-blue-800 ml-2 md:w-full md:max-w-[350px] max-w-32 placeholder-blue-800"
           value={search}
           onChange={(e) => handleSearch(e.target.value)}
         />
