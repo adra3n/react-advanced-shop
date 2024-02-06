@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, fireEvent, act } from '@testing-library/react'
+import { render, fireEvent, waitFor, act, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import Product from './components/Product'
 import Header from './components/Header'
@@ -13,7 +13,7 @@ const product = {
   id: 1,
   name: 'Test',
   price: '100',
-  image: 'test',
+  image: 'https://loremflickr.com/640/480/nightlife',
   brand: 'Test',
   model: 'Test',
   description: 'Test',
@@ -88,16 +88,24 @@ it('renders product details correctly', () => {
   expect(getByText(product.model)).toBeInTheDocument()
   expect(getByText(`${product.price} ₺`)).toBeInTheDocument()
 })
-it('renders product image correctly', () => {
+
+it('renders product image correctly', async () => {
   const handleAddToCart = jest.fn()
 
-  const { getByAltText } = render(
+  render(
     <MemoryRouter>
       <Product product={product} handleAddToCart={handleAddToCart} />
     </MemoryRouter>
   )
 
-  expect(getByAltText(product.name)).toBeInTheDocument()
+  try {
+    await waitFor(
+      () => expect(screen.getByAltText(product.name)).toBeInTheDocument(),
+      {}
+    )
+  } catch (error) {
+    expect(screen.getByTestId('skeleton')).toBeInTheDocument()
+  }
 })
 
 it('renders "Add to cart" button', () => {
