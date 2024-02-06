@@ -89,7 +89,7 @@ it('renders product details correctly', () => {
   expect(getByText(`${product.price} ₺`)).toBeInTheDocument()
 })
 
-it('renders product image correctly', async () => {
+it('renders product image else skeleton', async () => {
   const handleAddToCart = jest.fn()
 
   render(
@@ -101,7 +101,9 @@ it('renders product image correctly', async () => {
   try {
     await waitFor(
       () => expect(screen.getByAltText(product.name)).toBeInTheDocument(),
-      {}
+      {
+        
+      }
     )
   } catch (error) {
     expect(screen.getByTestId('skeleton')).toBeInTheDocument()

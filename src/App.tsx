@@ -31,6 +31,7 @@ const App: React.FC = () => {
     //chck cart from local storage
     const savedCart = localStorage.getItem('cart')
     if (savedCart) {
+      console.log('got cart saved on localstr')
       return JSON.parse(savedCart)
     } else {
       return { totalPrice: 0, products: [] }
@@ -42,12 +43,12 @@ const App: React.FC = () => {
       const response = await axios.get(`${BACKEND_URL}/products`)
       setProducts(response.data)
 
-      console.log('got response>>>', response.data)
-      console.log('set products>>>', products)
+      console.log('fetched products>>>', products)
     } catch (error) {
       console.error('fetch error products>>>', error)
     }
   }
+
   //getproducts on mount
   useEffect(() => {
     fetchProducts()

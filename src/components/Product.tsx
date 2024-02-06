@@ -28,6 +28,7 @@ const Product: React.FC<ProductProps> = ({ product, handleAddToCart }) => {
 
   return (
     <div className="flex flex-col items-start justify-between gap-3 md:w-56 w-80 m-3 bg-white rounded p-5 shadow-lg">
+      {/* load skeletons till image */}
       {isLoading ? (
         <Skeleton />
       ) : (
